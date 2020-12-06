@@ -19,7 +19,7 @@ def indexing(
     data_raw = "\n".join(json.dumps(x) for x in data) + "\n"
     header = {"Content-Type": "application/x-ndjson"}
     res = requests.post(url=url, data=data_raw, headers=header)
-    if res.status_code != 200:
+    if res.status_code != 200 or res.json()["errors"]:
         print(res.status_code, res.text, file=sys.stderr)
         raise BulkInsertionException()
     print("{} items inserted".format(len(batch_data)))
