@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  elasticsearch:
+    image: dialog_search/elasticsearch
+    build: containers/elasticsearch/
+    ports:
+      - 9200:9200
+    environment:
+      # Set discovery.type parameter https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode
+      # If not, you will get the error while bootings Elasticsearch
+      #
+      #   [1]: the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured
+      - discovery.type=single-node
+  kibana:
+    image: dialog_search/kibana
+    build: containers/kibana/
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
