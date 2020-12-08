@@ -12,6 +12,7 @@ $ docker-compose -f docker-compose.yml up
 ## Indexing
 
 If you want to create mapping before indexing your data, you can use "create_index.sh"
+This scripts create a new mapping. The `turns` field is analyzed by the kuromoji analyzer.
 
 ```sh
 $ bash create_index.sh localhost:9200 dialog
